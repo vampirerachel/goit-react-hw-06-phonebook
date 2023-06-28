@@ -25,7 +25,6 @@ const contactsSlice = createSlice({
   },
 });
 
-// Action creator for 'ADD_CONTACT'
 export const addContact = (contact) => ({
   type: 'ADD_CONTACT',
   payload: contact
@@ -34,7 +33,9 @@ export const addContact = (contact) => ({
 export const { deleteContact } = contactsSlice.actions;
 export const { setFilter } = filterSlice.actions;
 
-export default {
+const reducers = {
   contacts: contactsSlice.reducer,
   filter: filterSlice.reducer,
 };
+
+export default reducers;

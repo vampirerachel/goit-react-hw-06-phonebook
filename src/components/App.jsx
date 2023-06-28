@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+
 import ContactList from "./ContactList";
 import NameForm from "./NameForm";
 import Filter from "./Filter";
