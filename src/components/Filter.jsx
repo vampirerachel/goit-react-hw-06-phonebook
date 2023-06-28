@@ -1,28 +1,26 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setFilter } from "../filterReducer";
+import styles from "./styles.module.css";
 
-const Filter = ({ handleFilterChange }) => {
-  const [filter, setFilter] = useState("");
-
-  useEffect(() => {
-    setFilter(""); // Reset the filter input on page refresh
-  }, []);
-
+const Filter = () => {
+  const filter = useSelector((state) => state.filter);
+  const dispatch = useDispatch();
   const handleChange = (event) => {
-    setFilter(event.target.value);
-    handleFilterChange(event.target.value);
+  dispatch(setFilter(event.target.value.trim()));
   };
-
+  
   return (
-    <div>
-      <p>Filter contacts by name:</p>
-      <input type="text" value={filter} onChange={handleChange} />
+    <div className={styles.filterContainer}>
+      <label>Filter contacts</label>
+      <input
+        className={styles.input}
+        type="text"
+        value={filter}
+        onChange={handleChange}
+      />
     </div>
   );
-};
-
-Filter.propTypes = {
-  handleFilterChange: PropTypes.func.isRequired,
 };
 
 export default Filter;
