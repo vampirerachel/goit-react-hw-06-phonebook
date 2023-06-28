@@ -9,7 +9,7 @@ const NameForm = () => {
   const [number, setNumber] = useState("");
   const dispatch = useDispatch();
 
- const capitalizeFirstLetter = (str) => {
+  const capitalizeFirstLetter = (str) => {
     return str
       .toLowerCase()
       .split(" ")
@@ -17,7 +17,7 @@ const NameForm = () => {
       .join(" ");
   };
 
-const handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     const newContact = {
@@ -30,7 +30,6 @@ const handleSubmit = (event) => {
     setName("");
     setNumber("");
   };
-
 
   return (
     <div className={styles.phonebook}>
@@ -63,6 +62,6 @@ const handleSubmit = (event) => {
       </form>
     </div>
   );
+};
 
-}
 export default NameForm;

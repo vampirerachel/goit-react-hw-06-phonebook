@@ -1,9 +1,7 @@
-// contactReducer.js
-
 import { createSlice } from "@reduxjs/toolkit";
 import { faDog, faCat, faFish } from "@fortawesome/free-solid-svg-icons";
 
-const iconOptions = [faDog, faCat, faFish]; // Add more icons as needed
+const iconOptions = [faDog, faCat, faFish];
 
 const getRandomIcon = () => {
   const randomIndex = Math.floor(Math.random() * iconOptions.length);

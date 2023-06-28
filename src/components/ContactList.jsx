@@ -3,15 +3,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteContact } from "../contactReducer";
 import styles from "./styles.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 const ContactList = () => {
   const contacts = useSelector((state) => state.contacts);
   const filter = useSelector((state) => state.filter);
 
   const filteredContacts = contacts.filter((contact) => {
-  const nameMatch = contact.name.toLowerCase().includes(filter.toLowerCase());
-  const numberMatch = contact.number.includes(filter);
-  return nameMatch || numberMatch;
-});
+    const nameMatch = contact.name.toLowerCase().includes(filter.toLowerCase());
+    const numberMatch = contact.number.includes(filter);
+    return nameMatch || numberMatch;
+  });
 
   const dispatch = useDispatch();
 
@@ -21,7 +22,7 @@ const ContactList = () => {
 
   return (
     <div className={styles.contactList}>
-      <h2>Contacts</h2>
+      <h2>Contact List</h2>
       {filteredContacts.length === 0 ? (
         <p>No contacts found.</p>
       ) : (
@@ -30,7 +31,12 @@ const ContactList = () => {
             <li key={contact.id} className={styles.contactListItem}>
               <FontAwesomeIcon icon={contact.icon} />
               {contact.name} - {contact.number}
-              <button onClick={() => handleDelete(contact.id)} className={styles.deleteButton}>Delete</button>
+              <button
+                onClick={() => handleDelete(contact.id)}
+                className={styles.deleteButton}
+              >
+                Delete
+              </button>
             </li>
           ))}
         </ul>
