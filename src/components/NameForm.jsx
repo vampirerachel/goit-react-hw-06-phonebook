@@ -13,8 +13,6 @@ const NameForm = ({ handleAddContact }) => {
     const nameRegex = /^[A-Za-z]+$/;
     const numberRegex = /^[0-9]+$/;
 
-    console.log("Name:", name);
-    console.log("Number:", number);
 
     if (!name.match(nameRegex)) {
       console.log("Invalid name:", name);

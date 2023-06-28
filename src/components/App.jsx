@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact, deleteContact, setFilter } from '../reducers';
+import { addContact, deleteContact } from '../reducers';
+import styles from './styles.module.css';
 
 const App = () => {
   const contacts = useSelector((state) => state.contacts);
-  const filter = useSelector((state) => state.filter);
   const dispatch = useDispatch();
-
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [filter, setFilter] = useState('');
 
-  const handleAddContact = (event) => {
-    event.preventDefault();
+  const handleAddContact = () => {
+    if (name.trim() === '' || phone.trim() === '') {
+      return;
+    }
 
-    dispatch(addContact({ name, phone }));
+    const newContact = {
+      id: new Date().getTime().toString(),
+      name,
+      phone,
+    };
 
-    // Clear input fields
+    dispatch(addContact(newContact));
     setName('');
     setPhone('');
   };
@@ -24,50 +30,49 @@ const App = () => {
     dispatch(deleteContact(id));
   };
 
-  const handleFilterChange = (event) => {
-    dispatch(setFilter(event.target.value));
-  };
-
-  const filteredContacts = filter
-  ? contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    )
-  : contacts;
+  const filteredContacts = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
 
   return (
-    <div>
+    <div className={styles.phonebook}>
       <h1>Phonebook</h1>
-      <h2>Contacts</h2>
-      <input
-        type="text"
-        placeholder="Filter contacts"
-        value={filter}
-        onChange={handleFilterChange}
-      />
-      <ul>
-        {filteredContacts.map((contact) => (
-          <li key={contact.id}>
-            {contact.name} - {contact.phone}
-            <button onClick={() => handleDeleteContact(contact.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
       <h2>Add New Contact</h2>
-      <form onSubmit={handleAddContact}>
+      <div className={styles.inputContainer}>
         <input
           type="text"
           placeholder="Name"
           value={name}
-          onChange={(event) => setName(event.target.value)}
+          onChange={(e) => setName(e.target.value)}
         />
         <input
           type="text"
           placeholder="Phone"
           value={phone}
-          onChange={(event) => setPhone(event.target.value)}
+          onChange={(e) => setPhone(e.target.value)}
         />
-        <button type="submit">Add Contact</button>
-      </form>
+        <button className={styles.button} onClick={handleAddContact}>Add Contact</button>
+      </div>
+      <h2>Filter Contacts</h2>
+      <div className={styles.filterContainer}>
+        <label htmlFor="filterInput">Filter by Name:</label>
+        <input
+          id="filterInput"
+          type="text"
+          placeholder="Enter contact name"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        />
+      </div>
+      <h2>Contacts</h2>
+      <ul>
+        {filteredContacts.map((contact) => (
+          <li key={contact.id}>
+            {contact.name} - {contact.phone}
+            <button className={styles.button} onClick={() => handleDeleteContact(contact.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
