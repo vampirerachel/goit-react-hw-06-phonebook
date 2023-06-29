@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addContact } from "../reducers";
+import { addContact } from "../redux/reducers";
 import { nanoid } from "@reduxjs/toolkit";
 import styles from "./styles.module.css";
 
